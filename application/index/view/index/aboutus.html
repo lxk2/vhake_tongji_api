@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>关于我们</title>
+    <script src="/static/home/js/axios.min.js"></script>
+    <script src="/static/home/js/flex/flexible.js"></script>
+    <script src="/static/home/js/flex/flexible_css.js"></script>
+    <script src="/static/home/js/vue.min.js"></script>
+    <style>
+        .container {
+            width: 9.4rem;
+            margin: 0.3rem auto;
+        }
+        .container > img {
+            width: 100% !important;
+        }
+        .container  p {
+            width: 100%!important;
+            font-size: 0.346666667rem!important;
+            line-height: 0.613333333rem !important;
+            color: #666!important;
+        }
+        .container > * {
+            width: 100% !important;
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container" v-html="netData.item_value">
+
+    </div>
+    <script>
+        var vm = new Vue({
+          el: '.container',
+          data: {
+            netData: {}
+          },
+          created() {
+            this.getPageData()
+          },
+          mounted() {
+
+          },
+          methods: {
+            getPageData() {
+              let that = this
+              axios.post('https://liuyanban.ssslover.com/api/v1.single_item/getSingleItem', {
+                id: 1
+              })
+                  .then(res => {
+                    if (res.data.code === 1) {
+                      that.netData = res.data.data.info
+                    }
+                  })
+            }
+          }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?php
+
+namespace data\extend\apay;
+
+class AliConfig
+{
+//    public $appId = ALIPAY_APP_APPID;
+//    public $resPrivateKey = ALIPAY_APP_RESPRIVATEKEY;
+//    public $alipayrsPublicKey = ALIPAY_APP_PUBLICKEY;
+//    public $notify_url = ALIPAY_APP_NOTIFY_URL;
+//    /** @var string 支付成功跳转地址，后面需加上订单SN */
+//    public $return_url = ALIPAY_APP_RETURN_URL;
+//    /** @var string 支付宝公钥 */
+//    public $aliPulickey = ALIPAY_APP_ALIPUBLICKEY;
+
+    public $appId = '2018030502317243';
+    public $resPrivateKey = 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCBu+GUskf812nCuEpckAwORY5VOzdGTHoSKaHPTL5MNSJr2IjT9Nyi60s2DYnEF/uKzOrAqFWJHLVmZc4c4eFnC7Yaur6k4CCDsT+AnvhVYt/p4ZZXzP0aBtGBFUfTRwC3qZwc2+HjYKyfSXjMxnQVRB3sLSSnwUQhPGcyl1deTmhw175Cmjp8IgkpQme7+TDG7A1VaY6pEvuj1YYwJZKWWVgAGQDJIi9iNlWqrVTQGsN1d+NOnj6wyS1Actj3UPc0UWiM8jH7jIdxWwv6VBlDgu1CSE8KSqyjDezrbfHUbuVdgP5K5QygOkdKQNksTSgEv6WrEW6xYEy2kvOuD/F5AgMBAAECggEATeS1w6brbBcWbBBkrYDbjDIdDHWacX33iTIv8hx84ZrBiQkg1kpdswAdT13/ippvsF3q0TQA72sqS0ny4AqLYGh6tT/MuYfMXeWtYBeSuQm9sVp9/0eX6+mOHrfdQTCPcLbIgddPoErqOlVNz32UMzSL1sMgEA0NT/tJZunRTlBdpKZiMH+3LiF/ufDy+Fsp35TkTmZsxKmlRTSksnrPx4Tk1wMOdBN7CY7pTSPgD2cBUKwkSVIeK0kxrpplevuraald1qwgWksLnHuaFcG60JJDoRWuIUgwBM7bBCxYRR8Dlay32ao9OD0Tgdn+neYDVa2vAK72qzifbZ6xnQuEtQKBgQDXW4ib5XxE1DqST3lN4ApbznhucHbgykuhEAuGBfHKSMa/BLAw8jrr/hzHz2nxVAoMK+4ChWrkJ0T4mdTul2S99JuxbAwu84CB18EVz4x4SIJZ3KW884i1cKCcfXto8QN/j79wYF862T5cay5n2gnZ+f/VXTgLtBhp6Qzdi1x5KwKBgQCaN6dL55HA3j5OQ6AYUl17hCrBaaMfx/q7MM14CpznHoYzmFGpMZOII3Aso4UJxfBt2de1TdpZmQLWHXw/PdFkCtuC4tHPl9tfGsE74b73PXJCHeLamOLj0o6gHQSz6KKpGkURP3TaVFQ14M/2Zl5V1N+6JIYl6t4EmxbhQDyl6wKBgAs8KD1R1JDWrZOSd9abOI8fj2LblSgXBakKaD9+seWGtG+ks/hpuq8zG5dE99byNm/6Hrmc8j2i2tNJWzVzSnsqdrDj3SLZ6zta4STdJgvkZICBpVfdMKWekZJ4bWbFJBSUkD0xmeY9DSbPJKWgV2E6zKD58wGRTLDByr0IFzPvAoGAKeBa6V2kUn8G5DGw02nqQJQPGB4bUZH4H8SMxr/7Azdisbf21L7FlP4qg7STd6fsNaglzvGpDRNjlcjD6Fhc95GLMettlbViuFyHhD80n+ZrlFCRPVKuqbaPTCMVF9Vf9hNQFfLpRDAJ/ediEUKS8zOu3Nj2JG22hAGpINlUnqkCgYBENQEidtduzSQjFMWY+G39Z+KcaiJEgSP7vVxUOSvpl0SUJJD+eHLHeu2d1XKfPp9jjy5blG72FOTTXulTg3k+ymbMEiLm+6zgWDSuAPlRJiYomRao3d3kUwAvSDnhq7yPt1Zu/X+TlFDiCUy9ndBe1nc6rQsOXfgNTZMgFE6Bow==';
+    public $alipayrsPublicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgbvhlLJH/NdpwrhKXJAMDkWOVTs3Rkx6Eimhz0y+TDUia9iI0/TcoutLNg2JxBf7iszqwKhViRy1ZmXOHOHhZwu2Grq+pOAgg7E/gJ74VWLf6eGWV8z9GgbRgRVH00cAt6mcHNvh42Csn0l4zMZ0FUQd7C0kp8FEITxnMpdXXk5ocNe+Qpo6fCIJKUJnu/kwxuwNVWmOqRL7o9WGMCWSlllYABkAySIvYjZVqq1U0BrDdXfjTp4+sMktQHLY91D3NFFojPIx+4yHcVsL+lQZQ4LtQkhPCkqsow3s623x1G7lXYD+SuUMoDpHSkDZLE0oBL+lqxFusWBMtpLzrg/xeQIDAQAB';
+    public $notify_url = 'https://api.shengyuxiancheng.com/api/v1.notify/ali';
+    /** @var string 支付成功跳转地址，后面需加上订单SN */
+    public $return_url = ALIPAY_APP_RETURN_URL;
+    /** @var string 支付宝公钥 */
+    public $aliPulickey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu+CnQ16Wx53X/mC10oL8TNs7BnGqFkwSQaDeb0ow2PiSrVZq0gZ/sLPmgZut2fUV5xBOLjyViKwOzyGvH9e7djiK3wqNylOwZd7FQfD7aWESl+U9q3diJVJ85KFMMQn2gKGIAFheH2z6s7agN1j6mqPnDboQbb/zHL1HWhw/lajBJxiiUHjQydpEb/PNtM3xQPADL5FJ+modAE3U5czlbor+Q1hIc3yxKqNup7inTh8vIJtfwkI9CmhurZgnD3PVEd9zJuFxOCAE8+dmNo3HXswMQ+W96JNIFftkhAdrwGqNL6vTsTZUa7HRJMO6Dgdhseki06arwSVDrj6QVo2CxwIDAQAB';
+}

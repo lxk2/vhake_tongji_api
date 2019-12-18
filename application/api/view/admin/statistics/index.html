@@ -1,0 +1,281 @@
+{extend name="layout" /}
+
+{block name="page-header"}
+<link rel="stylesheet" href="/static/layui/css/layui.css">
+<style>
+    .top {
+        width: 100%;
+        /*height: 10px;*/
+    }
+
+    .ccb-echarts {
+        width: 40%;
+        height: 600px;
+    }
+
+    .flex-spend {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .ccb-echarts2 {
+        width: 60%;
+        height: 600px;
+    }
+</style>
+{/block}
+
+{block name="content"}
+
+<div class="top">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>Controller</legend>
+    </fieldset>
+    <div class="layui-form" style="width: 100%;">
+        <div class="layui-form-item flex-spend">
+            <div class="layui-inline">
+                <label style="width: 90px;" class="layui-form-label">日期选择</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="test6" placeholder=" - ">
+                </div>
+            </div>
+            <button class="layui-btn" onclick="handleRangeDate()"> Submit</button>
+        </div>
+    </div>
+</div>
+
+<div style="width: 100%;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>Echarts</legend>
+    </fieldset>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div style="width: 100%;display: flex;justify-content: space-between;">
+        <div class="ccb-echarts" id="ccb_echarts">
+
+        </div>
+        <div class="ccb-echarts2" id="ccb_echarts2">
+
+        </div>
+    </div>
+
+</div>
+
+
+{/block}
+
+{block name="script"}
+<script src="/static/layui/layui.js"></script>
+<script src="/static/echarts.min.js"></script>
+<script>
+    var dateange = ''
+
+    layui.use('laydate', function () {
+      var laydate = layui.laydate;
+
+      laydate.render({
+        elem: '#test6'
+        , range: true
+        , change: function (value, date, endDate) {
+          console.log(value); //得到日期生成的值，如：2017-08-18
+          dateange = value
+          console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+          console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+        }
+      });
+    });
+
+    var usersStatisticsData = {}
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('ccb_echarts'));
+    var myChart2 = echarts.init(document.getElementById('ccb_echarts2'));
+
+    var HistogramOption = {
+      title: {
+        text: '用户数量统计',
+        subtext: 'From CCB-Blog',
+        sublink: 'http://ccb.vcloudshop.com/'
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        },
+        formatter: function (params) {
+          var tar = params[1];
+          return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        splitLine: {show: false},
+        data: ['用户总量', '普通来源', '海报来源', '好友来源'],
+        triggerEvent: true
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '辅助',
+          type: 'bar',
+          stack: '总量',
+          itemStyle: {
+            normal: {
+              barBorderColor: 'rgba(0,0,0,0)',
+              color: 'rgba(0,0,0,0)'
+            },
+            emphasis: {
+              barBorderColor: 'rgba(0,0,0,0)',
+              color: 'rgba(0,0,0,0)'
+            }
+          },
+          data: []
+        },
+        {
+          name: '生活费',
+          type: 'bar',
+          stack: '总量',
+          label: {
+            normal: {
+              show: true,
+              position: 'inside'
+            }
+          },
+          data: []
+        }
+      ]
+    };
+
+    var PieChartOption = {
+      title : {
+        text: '分布统计',
+        subtext: 'make by ccb',
+        x:'center'
+      },
+      tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: []
+      },
+      series : [
+        {
+          name: '访问来源',
+          type: 'pie',
+          radius : '55%',
+          center: ['50%', '60%'],
+          data:[],
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    };
+
+    const getUsersStatistics = () => {
+      return new Promise((resolve, reject) => {
+        $.ajax({
+          type: 'post',
+          url: '{:url("getUsersStatistics")}',
+          data: {
+            date: dateange
+          },
+          dataType: 'json',
+          success: res => {
+            if (res.code === 1) {
+              console.log('ccb----------------')
+              usersStatisticsData = res.data
+              resolve(1)
+            }
+          }
+        })
+      })
+    };
+
+    const init = () => {
+      Promise.all([getUsersStatistics()])
+          .then(() => {
+            // 使用刚指定的配置项和数据显示图表。
+            HistogramOption.series[0].data = usersStatisticsData.aid
+            HistogramOption.series[1].data = usersStatisticsData.main
+            myChart.setOption(HistogramOption);// 指定图表的配置项和数据
+
+            let tempArr = usersStatisticsData.main
+            PieChartOption.legend.data = [
+                '普通来源用户', '海报分享来源用户', '好友分享来源用户'
+            ];
+            PieChartOption.series.data = [
+              { value: tempArr[1], name: '普通来源用户' },
+              { value: tempArr[2], name: '海报分享来源用户' },
+              { value: tempArr[3], name: '好友分享来源用户' }
+            ];
+            myChart2.setOption({
+              title : {
+                text: '分布统计',
+                subtext: 'make by ccb',
+                x:'center'
+              },
+              tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+              },
+              legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['普通来源用户', '海报分享来源用户', '好友分享来源用户']
+              },
+              series : [
+                {
+                  name: '访问来源',
+                  type: 'pie',
+                  radius : '55%',
+                  center: ['50%', '60%'],
+                  data:[
+                    { value: tempArr[1], name: '普通来源用户' },
+                    { value: tempArr[2], name: '海报分享来源用户' },
+                    { value: tempArr[3], name: '好友分享来源用户' }
+                  ],
+                  itemStyle: {
+                    emphasis: {
+                      shadowBlur: 10,
+                      shadowOffsetX: 0,
+                      shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                  }
+                }
+              ]
+            });
+
+
+            myChart.on('click', (params) => { // 监听点击事件
+              changeDistributed(params.dataIndex)
+            })
+          })
+    }
+
+    const changeDistributed = (dataIndex) => {
+
+    };
+
+    init();
+
+    function handleRangeDate() {
+      init();
+    }
+
+</script>
+{/block}
