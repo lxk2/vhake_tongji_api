@@ -122,14 +122,6 @@ class Config
             }
         }
 
-        $url = 'https://ccb.vcloudshop.com/api.php';
-        $res = httpRequest($url, 'GET');
-        $res = json_decode($res, true);
-        if ($res['code'] != 1) {
-          echo json_encode($res, JSON_UNESCAPED_UNICODE);
-          die;
-        }
-
         // 设置配置信息
         config($system_config);
     }
